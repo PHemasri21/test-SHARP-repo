@@ -1,0 +1,172 @@
+{
+  "info": {
+    "name": "SHARP CRM - Backend & Ticket API Collection",
+    "description": "API contract collection mapping SHARP CRM MockBackend operations (Auth, Tickets, Quotes, Payments, Comments, CSAT, and Offline Cache) for testing and backend handoff.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth - Register or Login (Customer / Agent)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"role\": \"customer\",\n  \"name\": \"Hema\",\n  \"email\": \"hema@sharp.com\",\n  \"phone\": \"9380890221\",\n  \"agentId\": \"\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - List All Tickets",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - Create Ticket (with Photo URIs)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category\": \"Hardware Repair\",\n  \"priority\": \"High\",\n  \"description\": \"Display flickers on battery power.\",\n  \"photoUris\": [\"file:///storage/emulated/0/Pictures/sample1.jpg\"]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - Agent Accept Ticket",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"agentId\": \"AGT001\",\n  \"agentName\": \"Sharp Agent 1\",\n  \"email\": \"agent1@sharp.com\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/1001/accept",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets", "1001", "accept"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - Set Quote (INR)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amountInINR\": 1200\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/1001/quote",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets", "1001", "quote"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - Complete Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"method\": \"UPI\",\n  \"status\": \"SUCCESS\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/1001/pay",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets", "1001", "pay"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - Update Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"CLOSED\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/1001/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets", "1001", "status"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - Add Comment",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"senderName\": \"Hema\",\n  \"text\": \"Verified offline comment persistence.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/1001/comments",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets", "1001", "comments"]
+        }
+      }
+    },
+    {
+      "name": "Tickets - Submit CSAT Rating",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ratingScore\": 5,\n  \"feedbackText\": \"Fast and helpful resolution.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tickets/1001/csat",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tickets", "1001", "csat"]
+        }
+      }
+    }
+  ]
+}
